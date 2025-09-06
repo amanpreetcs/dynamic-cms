@@ -1,0 +1,24 @@
+{
+  "id": "card_list_1",
+  "title": "Treasures of the Natural World",
+  "cards": [
+    {
+      "title": "Whispers of the Forest",
+      "description": "Experience the calming symphony of rustling leaves, dancing sunlight, and vibrant wildlife.",
+      "icon": "🌿",
+      "features": ["Lush greenery", "Rare flora"]
+    },
+    {
+      "title": "Ocean’s Canvas",
+      "description": "Dive into the endless hues of blue where waves sculpt patterns on sandy shores.",
+      "icon": "🌊",
+      "features": ["Crystal waters", "Seaside tranquility"]
+    },
+    {
+      "title": "Mountains of Majesty",
+      "description": "Stand before towering peaks painted with snow, clouds, and timeless grandeur.",
+      "icon": "⛰️",
+      "features": ["Breathtaking views", "Peaceful solitude"]
+    }
+  ]
+}

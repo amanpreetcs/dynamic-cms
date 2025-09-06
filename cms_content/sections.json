@@ -1,0 +1,50 @@
+[
+  {
+    "id": "section_1",
+    "type": "banner",
+    "context": {
+      "animation": "fade-in",
+      "duration": 1000
+    },
+    "content_key": "banner"
+  },
+  {
+    "id": "section_2",
+    "type": "carousel",
+    "context": {
+      "autoSlide": true,
+      "slideInterval": 4000,
+      "showDots": true,
+      "showArrows": true
+    },
+    "content_key": "carousel"
+  },
+  {
+    "id": "section_3",
+    "type": "card_list",
+    "context": {
+      "columns": 2,
+      "animation": "slide-up",
+      "stagger": 150
+    },
+    "content_key": "card_list"
+  },
+  {
+    "id": "section_4",
+    "type": "testimonial",
+    "context": {
+      "layout": "centered",
+      "animation": "fade-in"
+    },
+    "content_key": "testimonial"
+  },
+  {
+    "id": "section_5",
+    "type": "cta",
+    "context": {
+      "layout": "full-width",
+      "animation": "fade-in"
+    },
+    "content_key": "cta"
+  }
+]

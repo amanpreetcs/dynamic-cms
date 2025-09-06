@@ -1,0 +1,13 @@
+{
+  "id": "cta_1",
+  "title": "Reconnect With Nature",
+  "description": "Join us in celebrating the art of the natural world — a journey of inspiration, wonder, and harmony.",
+  "primaryButton": {
+    "text": "Start Your Journey",
+    "link": "#explore"
+  },
+  "secondaryButton": {
+    "text": "View Our Story",
+    "link": "#about"
+  }
+}

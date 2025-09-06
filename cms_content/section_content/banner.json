@@ -1,0 +1,8 @@
+{
+  "id": "banner_1",
+  "title": "Hello Manjeet",
+  "subtitle": "Every leaf, every sunrise, every ripple tells a story of beauty crafted by the Earth itself.",
+  "backgroundImage": "/images/banners/banner2.jpg",
+  "buttonText": "Explore Gallery",
+  "buttonLink": "#gallery"
+}

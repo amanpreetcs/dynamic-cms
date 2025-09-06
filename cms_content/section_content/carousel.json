@@ -1,0 +1,23 @@
+{
+  "id": "carousel_1",
+  "items": [
+    {
+      "title": "Golden Sunrise",
+      "description": "A new dawn paints the sky with warmth and hope over untouched landscapes.",
+      "image": "/images/slides/slide1.jpg",
+      "link": "#sunrise"
+    },
+    {
+      "title": "Forest Path",
+      "description": "Wander into the quiet heart of the woods, where time moves gently.",
+      "image": "/images/slides/slide2.jpg",
+      "link": "#forest"
+    },
+    {
+      "title": "Starry Night",
+      "description": "Under the vast sky, every star reminds us of the infinite beauty of nature.",
+      "image": "/images/slides/slide3.jpg",
+      "link": "#stars"
+    }
+  ]
+}
