@@ -71,6 +71,13 @@ export interface CTAContent {
   primaryButton?: Button;
   secondaryButton?: Button;
 }
+export type SectionTypeMap = {
+  banner: BannerContent;
+  carousel: CarouselContent;
+  card_list: CardListContent;
+  testimonial: TestimonialContent;
+  cta: CTAContent;
+};
 
 export type SectionContent =
   | BannerContent
@@ -81,7 +88,7 @@ export type SectionContent =
 
 export interface SectionComponentProps<T = SectionContent> {
   content: T;
-  context: SectionContext;
+  context?: SectionContext;
 }
 
 export interface UseIntersectionObserverOptions {
@@ -89,8 +96,12 @@ export interface UseIntersectionObserverOptions {
   rootMargin?: string;
   triggerOnce?: boolean;
 }
-
-export interface DynamicSectionProps {
-  section: Section;
+export interface DynamicSectionProps<T extends keyof SectionTypeMap> {
+  section: {
+    id: string;
+    type: T;
+    content_key: string;
+    context?: SectionContext;
+  };
   isLazyLoaded?: boolean;
 }

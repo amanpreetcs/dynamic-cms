@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, useEffect } from "react";
+import { JSX } from "react";
 
 interface ErrorPageProps {
   error: Error & { digest?: string };

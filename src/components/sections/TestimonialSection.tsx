@@ -4,13 +4,10 @@ import Image from "next/image";
 import type { SectionComponentProps, TestimonialContent } from "../../types";
 import Section from "../compoundComponents/Section";
 
-interface TestimonialSectionProps
-  extends SectionComponentProps<TestimonialContent> {}
-
 export default function TestimonialSection({
   content,
   context,
-}: TestimonialSectionProps) {
+}: SectionComponentProps<TestimonialContent>) {
   const layoutClass =
     context?.layout === "centered" ? "text-center" : "text-left";
 
@@ -19,9 +16,9 @@ export default function TestimonialSection({
       <Section.Wrapper>
         <div className={`${layoutClass}`}>
           <blockquote className="text-2xl md:text-3xl font-medium text-gray-900 mb-8 leading-relaxed">
-            <span>"</span>
+            <span>&quot;</span>
             {content.quote}
-            <span>"</span>
+            <span>&quot;</span>
           </blockquote>
 
           <div
@@ -50,7 +47,7 @@ export default function TestimonialSection({
                 {content.company && (
                   <>
                     <span className="mx-1" aria-hidden="true">
-                      •
+                      O&#771;
                     </span>
                     <span>{content.company}</span>
                   </>

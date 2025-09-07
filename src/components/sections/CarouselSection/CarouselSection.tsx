@@ -13,13 +13,10 @@ import CarouselNavArrows from "./CarouselNavArrows";
 import CarouselPlayButton from "./CarouselPlayButton";
 import CarouselDotIndicators from "./CarouselDotIndicators";
 
-interface CarouselSectionProps
-  extends SectionComponentProps<CarouselContentType> {}
-
 export default function CarouselSection({
   content,
   context,
-}: CarouselSectionProps) {
+}: SectionComponentProps<CarouselContentType>) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);

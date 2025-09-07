@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense, useCallback } from "react";
 import { useIntersectionObserver } from "../lib/hooks/useIntersectionObserver";
 import LoadingSkeleton from "./ui/LoadingSkeleton";
-import type { DynamicSectionProps, SectionContent } from "../types";
+import type {
+  DynamicSectionProps,
+  SectionContext,
+  SectionTypeMap,
+} from "../types";
 import axios from "axios";
 
 const BannerSection = lazy(
@@ -18,35 +22,34 @@ const CardListSection = lazy(
 const TestimonialSection = lazy(() => import("./sections/TestimonialSection"));
 const CTASection = lazy(() => import("./sections/CTASection"));
 
-const sectionComponents = {
+const sectionComponents: {
+  [K in keyof SectionTypeMap]: React.ComponentType<{
+    content: SectionTypeMap[K];
+    context?: SectionContext;
+    sectionId: string;
+  }>;
+} = {
   banner: BannerSection,
   carousel: CarouselSection,
   card_list: CardListSection,
   testimonial: TestimonialSection,
   cta: CTASection,
-} as const;
+};
 
-export default function DynamicSection({
+export default function DynamicSection<T extends keyof SectionTypeMap>({
   section,
   isLazyLoaded = false,
-}: DynamicSectionProps) {
-  const [content, setContent] = useState<SectionContent | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+}: DynamicSectionProps<T>) {
+  const [content, setContent] = useState<SectionTypeMap[T] | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // For lazy loading using Intersection Observer
   const [ref, isIntersecting] = useIntersectionObserver({
     threshold: 0.1,
     triggerOnce: true,
   });
 
-  useEffect(() => {
-    if (!isLazyLoaded || isIntersecting) {
-      fetchContent();
-    }
-  }, [isLazyLoaded, isIntersecting, section.content_key]);
-
-  const fetchContent = async (): Promise<void> => {
+  const fetchContent = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -55,14 +58,13 @@ export default function DynamicSection({
         `${process.env.NEXT_PUBLIC_API_BASE_URI}/content/${section.content_key}`
       );
 
-      if (!data) {
-        throw new Error(`Failed to fetch content`);
-      } else if (!data.success && data.message.includes("NoContentFound")) {
-        throw new Error(`No content found for key: ${section.content_key}`);
+      if (!data?.success) {
+        throw new Error(
+          data?.message ?? `No content found for key: ${section.content_key}`
+        );
       }
 
-      const contentData: SectionContent = data.data;
-      setContent(contentData);
+      setContent(data.data as SectionTypeMap[T]);
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";
@@ -71,13 +73,21 @@ export default function DynamicSection({
     } finally {
       setLoading(false);
     }
-  };
+  }, [section.content_key]);
 
-  const SectionComponent = sectionComponents[section.type];
+  useEffect(() => {
+    if (!isLazyLoaded || isIntersecting) {
+      fetchContent();
+    }
+  }, [isLazyLoaded, isIntersecting, fetchContent]);
 
-  if (!SectionComponent) {
-    return null;
-  }
+  const SectionComponent = sectionComponents[
+    section.type
+  ] as React.ComponentType<{
+    content: SectionTypeMap[T];
+    context?: SectionContext;
+    sectionId: string;
+  }>;
 
   if (loading) {
     return (

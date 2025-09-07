@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import DynamicSection from "./DynamicSection";
 import LoadingSkeleton from "./ui/LoadingSkeleton";
 import type { Section } from "../types";
@@ -11,11 +11,7 @@ export default function DynamicPageRenderer() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchSections();
-  }, []);
-
-  const fetchSections = async (): Promise<void> => {
+  const fetchSections = useCallback(async (): Promise<void> => {
     try {
       setLoading(true);
       setError(null);
@@ -36,11 +32,14 @@ export default function DynamicPageRenderer() {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";
       setError(errorMessage);
-      console.error("Error fetching sections:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!sections.length) fetchSections();
+  }, [sections, fetchSections]);
 
   if (loading) {
     return <LoadingSkeleton />;

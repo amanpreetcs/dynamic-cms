@@ -3,14 +3,14 @@ import path from "path";
 import { promises as fs } from "fs";
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     key: string;
-  };
+  }>;
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    const { key } = params;
+    const { key } = await params;
 
     if (!key) {
       return NextResponse.json({ error: "InvalidKey" }, { status: 400 });
@@ -31,7 +31,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     return NextResponse.json({ success: true, data: content });
-  } catch (error) {
-    return NextResponse.json({ error: "ServerError" }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: "ServerError", message: error },
+      { status: 500 }
+    );
   }
 }

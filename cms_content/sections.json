@@ -3,7 +3,6 @@
     "id": "section_1",
     "type": "banner",
     "context": {
-      "animation": "fade-in",
       "duration": 1000
     },
     "content_key": "banner"
@@ -24,7 +23,6 @@
     "type": "card_list",
     "context": {
       "columns": 2,
-      "animation": "slide-up",
       "stagger": 150
     },
     "content_key": "card_list"
@@ -33,8 +31,7 @@
     "id": "section_4",
     "type": "testimonial",
     "context": {
-      "layout": "centered",
-      "animation": "fade-in"
+      "layout": "centered"
     },
     "content_key": "testimonial"
   },
@@ -42,8 +39,7 @@
     "id": "section_5",
     "type": "cta",
     "context": {
-      "layout": "full-width",
-      "animation": "fade-in"
+      "layout": "full-width"
     },
     "content_key": "cta"
   }

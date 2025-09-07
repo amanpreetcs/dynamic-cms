@@ -9,9 +9,9 @@ import BannerScrollIndicator from "./BannerScrollIndicator";
 import BannerContent from "./BannerContentComp";
 import Section from "@/components/compoundComponents/Section";
 
-interface BannerSectionProps extends SectionComponentProps<BannerContentType> {}
-
-export default function BannerSection({ content }: BannerSectionProps) {
+export default function BannerSection({
+  content,
+}: SectionComponentProps<BannerContentType>) {
   return (
     <Section
       noPadding

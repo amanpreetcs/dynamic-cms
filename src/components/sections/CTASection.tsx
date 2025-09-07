@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import type { Button, CTAContent, SectionComponentProps } from "../../types";
+import type { CTAContent, SectionComponentProps } from "../../types";
 import Section from "../compoundComponents/Section";
 
-interface CTASectionProps extends SectionComponentProps<CTAContent> {}
-
-export default function CTASection({ content, context }: CTASectionProps) {
+export default function CTASection({
+  content,
+  context,
+}: SectionComponentProps<CTAContent>) {
   const isFullWidth = context?.layout === "full-width";
   const containerClass = isFullWidth ? "w-full" : "max-w-4xl mx-auto";
 

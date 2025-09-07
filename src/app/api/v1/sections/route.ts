@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import path from "path";
 import { promises as fs } from "fs";
-import type { Section } from "../../../types";
+import type { Section } from "@/types";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const sectionFile = path.join(process.cwd(), "cms_content/sections.json");
     const sectionData = await fs.readFile(sectionFile, "utf8");
@@ -16,7 +16,10 @@ export async function GET(request: NextRequest) {
       );
     }
     return NextResponse.json({ success: true, data: sections });
-  } catch (error) {
-    return NextResponse.json({ error: "ServerError" }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: "ServerError", message: error },
+      { status: 500 }
+    );
   }
 }

@@ -8,12 +8,10 @@ import type {
 } from "../../../types";
 import Section from "@/components/compoundComponents/Section";
 
-interface CardListSectionProps extends SectionComponentProps<CardListContent> {}
-
 export default function CardListSection({
   content,
   context,
-}: CardListSectionProps) {
+}: SectionComponentProps<CardListContent>) {
   const cards: FeatureCard[] = content?.cards || [];
 
   if (!cards.length) return null;

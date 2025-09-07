@@ -3,10 +3,10 @@ import type { UseIntersectionObserverOptions } from "../../types";
 
 export function useIntersectionObserver(
   options: UseIntersectionObserverOptions = {}
-): [RefObject<HTMLDivElement>, boolean] {
+): [RefObject<HTMLDivElement | null>, boolean] {
   const [isIntersecting, setIsIntersecting] = useState<boolean>(false);
   const [hasIntersected, setHasIntersected] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const element = ref.current;
@@ -14,23 +14,22 @@ export function useIntersectionObserver(
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // checking if it is visible in the viewport & updating the state accordingly.
         setIsIntersecting(entry.isIntersecting);
 
         if (entry.isIntersecting && options.triggerOnce && !hasIntersected) {
           setHasIntersected(true);
+          observer.unobserve(element);
         }
       },
       {
-        threshold: options.threshold || 0,
-        rootMargin: options.rootMargin || "0px",
+        threshold: options.threshold ?? 0,
+        rootMargin: options.rootMargin ?? "0px",
       }
     );
 
     observer.observe(element);
 
     return () => {
-      observer.unobserve(element);
       observer.disconnect();
     };
   }, [
